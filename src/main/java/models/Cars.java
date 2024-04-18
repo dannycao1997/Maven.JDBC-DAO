@@ -1,5 +1,7 @@
 package models;
 
+// https://dzone.com/articles/building-simple-data-access-layer-using-jdbc
+
 public class Cars {
 
     private Integer id;
