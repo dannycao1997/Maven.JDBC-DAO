@@ -1,8 +1,8 @@
-package models;
+package daos;
 
 // https://dzone.com/articles/building-simple-data-access-layer-using-jdbc
 
-public class Cars {
+public class Cars implements DTO {
 
     private Integer id;
     private String make;
@@ -29,10 +29,6 @@ public class Cars {
         this.year = year;
         this.color = color;
         this.vin = vin;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getMake() {
@@ -77,5 +73,10 @@ public class Cars {
 
     public void setVin(String vin){
         this.vin = vin;
+    }
+
+    @Override
+    public int getId() {
+        return id;
     }
 }

@@ -1,10 +1,9 @@
-package models;
+package daos;
 
 import com.mysql.jdbc.Driver;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLDataException;
 import java.sql.SQLException;
 
 // Connect to Database
