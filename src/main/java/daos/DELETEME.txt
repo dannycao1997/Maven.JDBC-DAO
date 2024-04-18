@@ -1,0 +1,3 @@
+insert into cars(id, make, model, year, color, vin) values (1, 'Nissan', 'GTR', 2021, 'White', 'JN1AR5EF1LM100354'),
+(2, 'Toyota', 'Supra', 1997, 'Red', JT2DE82A9V1000838), (3, 'Nissan', 'Skyline', 2001, 'Blue', 'JN1AR5EGXEM110067'),
+(4, 'Tesla', 'Model Y', 2023, 'White', 5YJYGDEE8MF138631)
