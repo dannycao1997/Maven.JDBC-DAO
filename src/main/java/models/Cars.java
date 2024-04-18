@@ -10,7 +10,6 @@ public class Cars {
     private String vin;
 
     public Cars(){
-
     }
 
     public Cars(Integer id, String make, String model, Integer year, String color, String vin){
