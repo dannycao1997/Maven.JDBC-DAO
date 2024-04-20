@@ -32,7 +32,7 @@ public class CarsDAO implements DAO {
     @Override
     public List<Cars> findAll() {
         List<Cars> cars = new ArrayList<>();
-        String query = "SELECT * FROM car";
+        String query = "SELECT * FROM cars";
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
@@ -46,7 +46,7 @@ public class CarsDAO implements DAO {
 
     @Override
     public Cars update(Cars cars) {
-        String query = "UPDATE car SET make=?, model=?, year=?, color=?, vin=? WHERE id=?";
+        String query = "UPDATE cars SET make=?, model=?, year=?, color=?, vin=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, cars.getMake());
             statement.setString(2, cars.getModel());
@@ -57,7 +57,7 @@ public class CarsDAO implements DAO {
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Updating car failed, no rows affected.");
+                throw new SQLException("Updating cars failed");
             } else {
                 return cars;
             }
@@ -69,7 +69,7 @@ public class CarsDAO implements DAO {
 
     @Override
     public Cars create(Cars cars) {
-        String query = "INSERT INTO car (make, model, year, color, vin) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO car (make, model, year, color, vin)";
         try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, cars.getMake());
             statement.setString(2, cars.getModel());
@@ -79,7 +79,7 @@ public class CarsDAO implements DAO {
 
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Creating car failed, no rows affected.");
+                throw new SQLException("Creating car failed");
             }
 
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -87,7 +87,7 @@ public class CarsDAO implements DAO {
                     cars.setId(generatedKeys.getInt(1));
                     return cars;
                 } else {
-                    throw new SQLException("Creating car failed, no ID found.");
+                    throw new SQLException("Creating car failed");
                 }
             }
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class CarsDAO implements DAO {
             statement.setInt(1, id);
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
-                throw new SQLException("Deleting car failed, no rows affected.");
+                throw new SQLException("Deleting car failed");
             }
         } catch (SQLException e) {
             e.printStackTrace();
