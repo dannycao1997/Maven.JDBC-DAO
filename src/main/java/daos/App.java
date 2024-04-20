@@ -14,6 +14,9 @@ import java.util.logging.Logger;
 public class App {
     // Test Connection
     public static void main(String[] args) {
+        String URL = "jdbc:mysql://localhost:3306/cars";
+        String USER = "danny";
+        String PASS = "password";
 
         try {
             Connection connection = DriverManager.getConnection(URL, USER, PASS);
