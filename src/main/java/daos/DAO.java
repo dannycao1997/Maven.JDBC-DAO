@@ -1,13 +1,13 @@
 package daos;
 import java.util.List;
 
-public abstract class DAO<T extends DTO> {
+public interface DAO {
 
     //CRUD Operations
-    public abstract T findById(int id);
-    public abstract List<T> findAll();
-    public abstract T update(T dto);
-    public abstract T create(T dto);
-    public abstract void delete(int id);
+    Cars findById(int id);
+    List<Cars> findAll();
+    Cars update(Cars cars);
+    Cars create(Cars cars);
+    void delete(int id);
 
 }
