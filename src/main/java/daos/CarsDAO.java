@@ -13,21 +13,22 @@ public class CarsDAO implements DAO {
         this.connection = connection;
     }
 
-    @Override
     public Cars findById(int id) {
-        String query = "SELECT * FROM car WHERE id = ?";
+        String query = "SELECT * FROM cars WHERE id = ?";
+        System.out.println("Executing query: " + query + " with ID: " + id);
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return extractCarFromResultSet(resultSet);
+            } else {
+                System.out.println("No car found with ID " + id);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 
     @Override
     public List<Cars> findAll() {
@@ -69,7 +70,7 @@ public class CarsDAO implements DAO {
 
     @Override
     public Cars create(Cars cars) {
-        String query = "INSERT INTO car (make, model, year, color, vin)";
+        String query = "INSERT INTO cars (make, model, year, color, vin) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, cars.getMake());
             statement.setString(2, cars.getModel());
@@ -98,7 +99,7 @@ public class CarsDAO implements DAO {
 
     @Override
     public void delete(int id) {
-        String query = "DELETE FROM car WHERE id=?";
+        String query = "DELETE FROM cars WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             int affectedRows = statement.executeUpdate();

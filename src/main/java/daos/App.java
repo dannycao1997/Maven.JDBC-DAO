@@ -18,34 +18,53 @@ public class App {
         String USER = "danny";
         String PASS = "password";
 
+
         try {
             Connection connection = DriverManager.getConnection(URL, USER, PASS);
             DAO carsDao = new CarsDAO(connection);
 
             // Create a new car
-            Cars newCar = new Cars(0, "Tesla", "Model S", 2021, "Black", "1234567890VIN");
-            Cars createdCars = carsDao.create(newCar);
-            System.out.println("Created Car: " + createdCars);
+            Cars newCar = new Cars(0, "Nissan", "Skyline GTR", 2001, "Bayside Blue", "1234567890VIN");
+            Cars createdCar = carsDao.create(newCar);
+            if (createdCar != null) {
+                System.out.println("Created Car: " + createdCar);
+            } else {
+                System.out.println("Failed to create car.");
+            }
 
             // Find car by ID
-            Cars foundCar = carsDao.findById(createdCars.getId());
-            System.out.println("Found Car: " + foundCar);
+            if (createdCar != null) {
+                Cars foundCar = carsDao.findById(createdCar.getId());
+                if (foundCar != null) {
+                    System.out.println("Found Car: " + foundCar);
 
-            // Update car
-            foundCar.setColor("White");
-            Cars updatedCar = carsDao.update(foundCar);
-            System.out.println("Updated Car: " + updatedCar);
+                    // Update car
+                    foundCar.setColor("White");
+                    Cars updatedCar = carsDao.update(foundCar);
+                    if (updatedCar != null) {
+                        System.out.println("Updated Car: " + updatedCar);
+                    } else {
+                        System.out.println("Failed to update car.");
+                    }
+
+                    // Delete car
+                    carsDao.delete(updatedCar.getId());
+                    System.out.println("Deleted Car with ID: " + updatedCar.getId());
+                } else {
+                    System.out.println("No car found with ID: " + createdCar.getId());
+                }
+            }
 
             // Find all cars
             List<Cars> cars = carsDao.findAll();
-            System.out.println("All cars:");
-            for (Cars car : cars) {
-                System.out.println(cars);
+            if (!cars.isEmpty()) {
+                System.out.println("All cars:");
+                for (Cars car : cars) {
+                    System.out.println(car);
+                }
+            } else {
+                System.out.println("No cars found in the database.");
             }
-
-            // Delete car
-            carsDao.delete(updatedCar.getId());
-            System.out.println("Deleted Car with ID: " + updatedCar.getId());
 
             connection.close();
         } catch (SQLException e) {

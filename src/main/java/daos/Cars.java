@@ -78,4 +78,17 @@ public class Cars {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Cars(" +
+                "ID:" + id +
+                ", Make:" + make +
+                ", Model:" + model  +
+                ", Year:" + year +
+                ", Color:" + color +
+                ", Vin:" + vin +
+                ')';
+    }
 }
+
